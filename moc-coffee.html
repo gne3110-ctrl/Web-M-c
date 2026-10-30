@@ -740,63 +740,13 @@ body.moc-page { min-height: 100vh; }
 .dashboard-content .food-bottom { padding-top: 6px; }
 .dashboard-content .food-price { font-size: 11px; }
 .dashboard-content .add-button { padding: 5px 6px; border-radius: 5px; font-size: 9px; }
-.dashboard-invoice {
-  position: sticky;
-  top: 22px;
-  min-width: 0;
-  padding: 18px 15px 14px;
-  border: 1px solid var(--line);
-  border-radius: 11px;
-  background: var(--surface);
-  box-shadow: 0 5px 18px #3f4b2d0b;
-}
-.invoice-heading { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
-.invoice-heading h2 { margin: 7px 0 0; font-size: 17px; }
-.invoice-heading .eyebrow { font-size: 8px; }
-.invoice-icon { width: 32px; height: 32px; display: grid; place-items: center; border-radius: 8px; background: var(--green-soft); color: #526e45; }
-.invoice-items { max-height: min(44vh, 390px); overflow-y: auto; overscroll-behavior: contain; }
-.invoice-empty { padding: 22px 3px; color: var(--muted); text-align: center; font-size: 10px; line-height: 1.6; }
-.invoice-row { display: grid; grid-template-columns: 39px minmax(0, 1fr) auto; align-items: center; gap: 9px; padding: 11px 0; border-bottom: 1px solid #edf0e8; }
-.invoice-row img { width: 39px; height: 39px; border-radius: 7px; object-fit: cover; background: var(--green-soft); }
-.invoice-row-details { min-width: 0; }
-.invoice-row-details strong, .invoice-row-details span { display: block; }
-.invoice-row-details strong { overflow: hidden; color: var(--ink); font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
-.invoice-row-details span { margin-top: 4px; color: var(--muted); font-size: 9px; }
-.invoice-row-total { color: #526e45; font-size: 9px; white-space: nowrap; }
-.invoice-total { display: flex; justify-content: space-between; padding: 14px 0; border-top: 1px dashed #dfe5d6; color: var(--muted); font-size: 10px; }
-.invoice-total strong { color: var(--ink); font-size: 13px; }
-.invoice-checkout {
-  width: 100%;
-  min-height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 12px;
-  border: 0;
-  border-radius: 6px;
-  background: var(--green);
-  color: #293326;
-  cursor: pointer;
-  font-size: 10px;
-  font-weight: 700;
-}
-.invoice-checkout:hover { background: var(--green-deep); color: var(--cream); }
-.invoice-checkout span { font-size: 15px; }
-.invoice-footnote { margin: 9px 0 0; color: var(--muted); font-size: 9px; line-height: 1.5; text-align: center; }
-.invoice-locations { display: flex; gap: 9px; margin-top: 16px; padding-top: 13px; border-top: 1px solid var(--line); color: #526e45; }
-.invoice-locations > span { font-size: 17px; }
-.invoice-locations strong, .invoice-locations small { display: block; }
-.invoice-locations strong { font-size: 9px; }
-.invoice-locations small { margin-top: 4px; color: var(--muted); font-size: 8px; }
 .footer { max-width: 1600px; }
 @media (min-width: 1250px) {
-  .app-shell { grid-template-columns: 185px minmax(0, 1fr) 285px; gap: 22px; }
+  .app-shell { grid-template-columns: 185px minmax(0, 1fr); gap: 22px; }
   .dashboard-content .menu-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 900px) {
   .app-shell { grid-template-columns: 145px minmax(0, 1fr); gap: 14px; padding: 16px; }
-  .dashboard-invoice { position: static; grid-column: 2; }
-  .invoice-items { max-height: 260px; }
   .dashboard-content .menu-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 620px) {
@@ -838,8 +788,6 @@ body.moc-page { min-height: 100vh; }
   .dashboard-content .food-bottom { align-items: flex-start; flex-direction: column; margin-top: auto; padding-top: 5px; }
   .dashboard-content .add-button { padding: 4px 5px; font-size: 0; }
   .dashboard-content .add-button span { font-size: 14px; }
-  .dashboard-invoice { width: 100%; padding: 15px; }
-  .invoice-items { max-height: 220px; }
   .footer { padding: 18px 14px; }
 }
 
@@ -882,82 +830,22 @@ body.moc-page { min-height: 100vh; }
   .dashboard-content .add-button { padding: 5px 6px; font-size: 9px; }
 }
 
-.food-image img,
-.invoice-row img { visibility: hidden; }
-.food-image,
-.invoice-row img { background: #f0eedf; }
+.food-image img { visibility: hidden; }
+.food-image { background: #f0eedf; }
 
 .cart-summary { padding-top: 5px; border-top: 1px solid var(--line); }
 .cart-summary .cart-total { padding: 9px 0 5px; border-top: 0; }
-.cart-tax, .invoice-tax { display: flex; justify-content: space-between; padding: 5px 0; color: var(--muted); font-size: 10px; }
-.cart-tax strong, .invoice-tax strong { color: var(--muted); font-size: 10px; font-weight: 500; }
-.cart-grand-total, .invoice-grand-total { display: flex; justify-content: space-between; align-items: center; padding: 9px 0 12px; border-top: 1px dashed #dfe5d6; color: var(--ink); font-size: 11px; font-weight: 700; }
-.cart-grand-total strong, .invoice-grand-total strong { color: #526e45; font-size: 16px; }
-.invoice-summary .invoice-total { padding: 10px 0 5px; border-top: 0; }
-.invoice-summary .invoice-grand-total { padding-bottom: 12px; }
+.cart-tax { display: flex; justify-content: space-between; padding: 5px 0; color: var(--muted); font-size: 10px; }
+.cart-tax strong { color: var(--muted); font-size: 10px; font-weight: 500; }
+.cart-grand-total { display: flex; justify-content: space-between; align-items: center; padding: 9px 0 12px; border-top: 1px dashed #dfe5d6; color: var(--ink); font-size: 11px; font-weight: 700; }
+.cart-grand-total strong { color: #526e45; font-size: 16px; }
 
 .app-shell { grid-template-columns: 180px minmax(0, 1fr); }
-.dashboard-invoice[hidden] { display: none; }
-.dashboard-invoice {
-  position: fixed;
-  z-index: 31;
-  top: auto;
-  right: 24px;
-  bottom: 88px;
-  width: min(360px, calc(100vw - 32px));
-  max-height: min(72vh, 590px);
-  height: auto;
-  display: block;
-  padding: 18px 17px 15px;
-  box-shadow: 0 16px 48px #303a2640;
-  animation: invoice-pop-in .18s ease-out;
-}
-.invoice-heading { flex: 0 0 auto; }
-.invoice-items { flex: 0 1 auto; min-height: 65px; max-height: min(36vh, 280px); overflow-y: auto; }
-.invoice-close { width: 32px; height: 32px; }
-.floating-cart-toggle {
-  position: fixed;
-  z-index: 32;
-  right: 24px;
-  bottom: 20px;
-  min-height: 54px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 0 17px 0 12px;
-  border: 1px solid #6f8e5e;
-  border-radius: 999px;
-  background: #80a46c;
-  color: #263023;
-  box-shadow: 0 8px 25px #34402c30;
-  cursor: pointer;
-  font: 600 12px var(--sans);
-  transition: transform .18s, box-shadow .18s, background .18s;
-}
-.floating-cart-toggle:hover { transform: translateY(-2px); background: #91b27d; box-shadow: 0 11px 28px #34402c38; }
-.floating-cart-toggle > span:nth-child(2) { white-space: nowrap; }
-.floating-cart-toggle > strong { color: #263023; white-space: nowrap; }
-.floating-cart-toggle > span:nth-child(2) strong { margin-left: 4px; color: #263023; }
-.floating-cart-icon { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%; background: #fff0c2; color: #526e45; font-size: 15px; }
-@keyframes invoice-pop-in {
-  from { transform: translateY(8px); opacity: .7; }
-  to { transform: translateY(0); opacity: 1; }
-}
 @media (max-width: 900px) {
   .app-shell { grid-template-columns: 145px minmax(0, 1fr); }
 }
 @media (max-width: 620px) {
   .app-shell { display: flex; }
-  .dashboard-invoice {
-    right: 12px;
-    bottom: 80px;
-    width: min(380px, calc(100vw - 24px));
-    max-height: min(72dvh, 590px);
-  }
-  .floating-cart-toggle { right: 14px; bottom: max(14px, env(safe-area-inset-bottom)); min-height: 50px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .dashboard-invoice { animation: none; }
 }
 
 .customize-dialog {
@@ -1014,12 +902,6 @@ body.moc-page { min-height: 100vh; }
         <span>Giỏ món</span><span id="launcher-count" class="topbar-cart-count">0</span><strong id="launcher-total">0₫</strong><span aria-hidden="true">↗</span>
       </button>
     </header>
-    <button class="floating-cart-toggle" id="floating-cart-toggle" type="button" aria-controls="dashboard-invoice" aria-expanded="false">
-      <span class="floating-cart-icon" aria-hidden="true">▤</span>
-      <span>Giỏ hàng <strong id="floating-cart-count">0</strong></span>
-      <strong id="floating-cart-total">0₫</strong>
-    </button>
-
     <main class="app-shell">
       <aside class="dashboard-sidebar" aria-label="Điều hướng">
         <a class="brand sidebar-brand" href="#" aria-label="Mộc Coffee — trang chủ">
@@ -1071,26 +953,6 @@ body.moc-page { min-height: 100vh; }
       </section>
 
       </div>
-
-      <aside class="dashboard-invoice" id="dashboard-invoice" aria-labelledby="invoice-title" hidden>
-        <div class="invoice-heading">
-          <div><span class="eyebrow"><span class="eyebrow-line"></span> ĐƠN HÀNG</span><h2 id="invoice-title">Giỏ món <span id="invoice-count" class="cart-count">0</span></h2></div>
-          <button type="button" class="cart-close invoice-close" id="close-invoice" aria-label="Đóng giỏ hàng">×</button>
-        </div>
-        <div class="invoice-items" id="invoice-items">
-          <p class="invoice-empty">Món bạn chọn sẽ hiện ở đây.</p>
-        </div>
-        <div class="invoice-summary">
-          <div class="invoice-total"><span>Tạm tính</span><strong id="invoice-total">0₫</strong></div>
-          <div class="invoice-tax"><span>Thuế VAT (8%)</span><strong id="invoice-tax">0₫</strong></div>
-          <div class="invoice-grand-total"><span>Tổng thanh toán</span><strong id="invoice-grand-total">0₫</strong></div>
-        </div>
-        <button class="invoice-checkout" type="button" data-open-cart aria-haspopup="dialog" aria-controls="cart-dialog">
-          Thanh toán <span aria-hidden="true">→</span>
-        </button>
-        <p class="invoice-footnote">Xác nhận đơn trực tiếp qua Zalo của Mộc.</p>
-        <div class="invoice-locations"><span>⌖</span><div><strong>Hai cửa hàng tại Hà Nội</strong><small>Hoàng Cầu · Trần Quang Diệu</small></div></div>
-      </aside>
 
       <dialog class="cart-dialog" id="cart-dialog" aria-labelledby="cart-dialog-title">
         <div class="cart-panel">
@@ -1288,13 +1150,8 @@ const menuGrid = document.querySelector("#menu-grid");
 const categoryList = document.querySelector("#categories");
 const searchInput = document.querySelector("#search-input");
 const cartItems = document.querySelector("#cart-items");
-const invoiceItems = document.querySelector("#invoice-items");
 const cartCount = document.querySelector("#cart-count");
 const cartTotal = document.querySelector("#cart-total");
-const invoiceCount = document.querySelector("#invoice-count");
-const invoiceTotal = document.querySelector("#invoice-total");
-const invoiceTax = document.querySelector("#invoice-tax");
-const invoiceGrandTotal = document.querySelector("#invoice-grand-total");
 const cartTax = document.querySelector("#cart-tax");
 const cartGrandTotal = document.querySelector("#cart-grand-total");
 const clearCartButton = document.querySelector("#clear-cart");
@@ -1427,45 +1284,13 @@ function renderCart() {
   cartTotal.textContent = formatPrice(subtotal);
   cartTax.textContent = formatPrice(tax);
   cartGrandTotal.textContent = formatPrice(total);
-  invoiceCount.textContent = itemCount;
-  invoiceTotal.textContent = formatPrice(subtotal);
-  invoiceTax.textContent = formatPrice(tax);
-  invoiceGrandTotal.textContent = formatPrice(total);
   document.querySelector("#launcher-count").textContent = itemCount;
   document.querySelector("#launcher-total").textContent = formatPrice(total);
-  document.querySelector("#floating-cart-count").textContent = itemCount;
-  document.querySelector("#floating-cart-total").textContent = formatPrice(total);
-  document.querySelector("#floating-cart-toggle").setAttribute(
-    "aria-label",
-    `Mở giỏ hàng, ${itemCount} món, tổng cộng ${formatPrice(total)}`,
-  );
   document.querySelector("#cart-launcher").setAttribute(
     "aria-label",
     `Mở giỏ hàng, ${itemCount} món, tổng cộng ${formatPrice(total)}`,
   );
   clearCartButton.hidden = entries.length === 0;
-  invoiceItems.innerHTML = entries.length
-    ? entries
-        .map(([key, variant]) => {
-          const item = menu.find((menuItem) => menuItem.id === variant.itemId);
-          const unitPrice = getVariantPrice(variant);
-          const details = [
-            variant.sugar && `Đường ${variant.sugar}`,
-            variant.ice && variant.ice,
-            ...variant.toppings.map((id) => menu.find((menuItem) => menuItem.id === id).name),
-          ].filter(Boolean).join(" · ");
-          return `
-            <div class="invoice-row">
-              <img src="${item.image}" alt="" loading="lazy" />
-              <div class="invoice-row-details">
-                <strong>${item.name}</strong>
-                <span>${variant.quantity} × ${formatPrice(unitPrice)}${details ? ` · ${details}` : ""}</span>
-              </div>
-              <strong class="invoice-row-total">${formatPrice(unitPrice * variant.quantity)}</strong>
-            </div>`;
-        })
-        .join("")
-    : `<p class="invoice-empty">Món bạn chọn sẽ hiện ở đây.</p>`;
   cartItems.innerHTML = entries.length
     ? entries
         .map(([key, variant]) => {
@@ -1557,28 +1382,12 @@ clearCartButton.addEventListener("click", () => {
 
 document.querySelectorAll("[data-open-cart]").forEach((button) => {
   button.addEventListener("click", () => {
-    closeInvoice();
     if (!cartDialog.open) {
       resetCustomerDetails();
       cartDialog.showModal();
     }
   });
 });
-
-const invoicePanel = document.querySelector("#dashboard-invoice");
-const invoiceToggle = document.querySelector("#floating-cart-toggle");
-
-function closeInvoice() {
-  invoicePanel.hidden = true;
-  invoiceToggle.setAttribute("aria-expanded", "false");
-}
-
-invoiceToggle.addEventListener("click", () => {
-  invoicePanel.hidden = !invoicePanel.hidden;
-  invoiceToggle.setAttribute("aria-expanded", String(!invoicePanel.hidden));
-});
-
-document.querySelector("#close-invoice").addEventListener("click", closeInvoice);
 
 document.querySelector("#close-cart").addEventListener("click", () => {
   cartDialog.close();

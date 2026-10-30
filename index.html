@@ -28,12 +28,6 @@
         <span>Giỏ món</span><span id="launcher-count" class="topbar-cart-count">0</span><strong id="launcher-total">0₫</strong><span aria-hidden="true">↗</span>
       </button>
     </header>
-    <button class="floating-cart-toggle" id="floating-cart-toggle" type="button" aria-controls="dashboard-invoice" aria-expanded="false">
-      <span class="floating-cart-icon" aria-hidden="true">▤</span>
-      <span>Giỏ hàng <strong id="floating-cart-count">0</strong></span>
-      <strong id="floating-cart-total">0₫</strong>
-    </button>
-
     <main class="app-shell">
       <aside class="dashboard-sidebar" aria-label="Điều hướng">
         <a class="brand sidebar-brand" href="#" aria-label="Mộc Coffee — trang chủ">
@@ -85,26 +79,6 @@
       </section>
 
       </div>
-
-      <aside class="dashboard-invoice" id="dashboard-invoice" aria-labelledby="invoice-title" hidden>
-        <div class="invoice-heading">
-          <div><span class="eyebrow"><span class="eyebrow-line"></span> ĐƠN HÀNG</span><h2 id="invoice-title">Giỏ món <span id="invoice-count" class="cart-count">0</span></h2></div>
-          <button type="button" class="cart-close invoice-close" id="close-invoice" aria-label="Đóng giỏ hàng">×</button>
-        </div>
-        <div class="invoice-items" id="invoice-items">
-          <p class="invoice-empty">Món bạn chọn sẽ hiện ở đây.</p>
-        </div>
-        <div class="invoice-summary">
-          <div class="invoice-total"><span>Tạm tính</span><strong id="invoice-total">0₫</strong></div>
-          <div class="invoice-tax"><span>Thuế VAT (8%)</span><strong id="invoice-tax">0₫</strong></div>
-          <div class="invoice-grand-total"><span>Tổng thanh toán</span><strong id="invoice-grand-total">0₫</strong></div>
-        </div>
-        <button class="invoice-checkout" type="button" data-open-cart aria-haspopup="dialog" aria-controls="cart-dialog">
-          Thanh toán <span aria-hidden="true">→</span>
-        </button>
-        <p class="invoice-footnote">Xác nhận đơn trực tiếp qua Zalo của Mộc.</p>
-        <div class="invoice-locations"><span>⌖</span><div><strong>Hai cửa hàng tại Hà Nội</strong><small>Hoàng Cầu · Trần Quang Diệu</small></div></div>
-      </aside>
 
       <dialog class="cart-dialog" id="cart-dialog" aria-labelledby="cart-dialog-title">
         <div class="cart-panel">

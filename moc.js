@@ -57,13 +57,8 @@ const menuGrid = document.querySelector("#menu-grid");
 const categoryList = document.querySelector("#categories");
 const searchInput = document.querySelector("#search-input");
 const cartItems = document.querySelector("#cart-items");
-const invoiceItems = document.querySelector("#invoice-items");
 const cartCount = document.querySelector("#cart-count");
 const cartTotal = document.querySelector("#cart-total");
-const invoiceCount = document.querySelector("#invoice-count");
-const invoiceTotal = document.querySelector("#invoice-total");
-const invoiceTax = document.querySelector("#invoice-tax");
-const invoiceGrandTotal = document.querySelector("#invoice-grand-total");
 const cartTax = document.querySelector("#cart-tax");
 const cartGrandTotal = document.querySelector("#cart-grand-total");
 const clearCartButton = document.querySelector("#clear-cart");
@@ -196,45 +191,13 @@ function renderCart() {
   cartTotal.textContent = formatPrice(subtotal);
   cartTax.textContent = formatPrice(tax);
   cartGrandTotal.textContent = formatPrice(total);
-  invoiceCount.textContent = itemCount;
-  invoiceTotal.textContent = formatPrice(subtotal);
-  invoiceTax.textContent = formatPrice(tax);
-  invoiceGrandTotal.textContent = formatPrice(total);
   document.querySelector("#launcher-count").textContent = itemCount;
   document.querySelector("#launcher-total").textContent = formatPrice(total);
-  document.querySelector("#floating-cart-count").textContent = itemCount;
-  document.querySelector("#floating-cart-total").textContent = formatPrice(total);
-  document.querySelector("#floating-cart-toggle").setAttribute(
-    "aria-label",
-    `Mở giỏ hàng, ${itemCount} món, tổng cộng ${formatPrice(total)}`,
-  );
   document.querySelector("#cart-launcher").setAttribute(
     "aria-label",
     `Mở giỏ hàng, ${itemCount} món, tổng cộng ${formatPrice(total)}`,
   );
   clearCartButton.hidden = entries.length === 0;
-  invoiceItems.innerHTML = entries.length
-    ? entries
-        .map(([key, variant]) => {
-          const item = menu.find((menuItem) => menuItem.id === variant.itemId);
-          const unitPrice = getVariantPrice(variant);
-          const details = [
-            variant.sugar && `Đường ${variant.sugar}`,
-            variant.ice && variant.ice,
-            ...variant.toppings.map((id) => menu.find((menuItem) => menuItem.id === id).name),
-          ].filter(Boolean).join(" · ");
-          return `
-            <div class="invoice-row">
-              <img src="${item.image}" alt="" loading="lazy" />
-              <div class="invoice-row-details">
-                <strong>${item.name}</strong>
-                <span>${variant.quantity} × ${formatPrice(unitPrice)}${details ? ` · ${details}` : ""}</span>
-              </div>
-              <strong class="invoice-row-total">${formatPrice(unitPrice * variant.quantity)}</strong>
-            </div>`;
-        })
-        .join("")
-    : `<p class="invoice-empty">Món bạn chọn sẽ hiện ở đây.</p>`;
   cartItems.innerHTML = entries.length
     ? entries
         .map(([key, variant]) => {
@@ -326,28 +289,12 @@ clearCartButton.addEventListener("click", () => {
 
 document.querySelectorAll("[data-open-cart]").forEach((button) => {
   button.addEventListener("click", () => {
-    closeInvoice();
     if (!cartDialog.open) {
       resetCustomerDetails();
       cartDialog.showModal();
     }
   });
 });
-
-const invoicePanel = document.querySelector("#dashboard-invoice");
-const invoiceToggle = document.querySelector("#floating-cart-toggle");
-
-function closeInvoice() {
-  invoicePanel.hidden = true;
-  invoiceToggle.setAttribute("aria-expanded", "false");
-}
-
-invoiceToggle.addEventListener("click", () => {
-  invoicePanel.hidden = !invoicePanel.hidden;
-  invoiceToggle.setAttribute("aria-expanded", String(!invoicePanel.hidden));
-});
-
-document.querySelector("#close-invoice").addEventListener("click", closeInvoice);
 
 document.querySelector("#close-cart").addEventListener("click", () => {
   cartDialog.close();
