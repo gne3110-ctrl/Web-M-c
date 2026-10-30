@@ -295,11 +295,18 @@ function renderOrderHistory() {
     return;
   }
 
-  for (const entry of orderHistory) {
+  for (const [index, entry] of orderHistory.entries()) {
     const card = document.createElement("article");
     card.className = "history-order";
 
-    const header = document.createElement("div");
+    const detailsId = `history-details-${index}`;
+    const toggle = document.createElement("button");
+    toggle.className = "history-order-toggle";
+    toggle.type = "button";
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.setAttribute("aria-controls", detailsId);
+    toggle.setAttribute("aria-label", "Mở chi tiết đơn hàng");
+    const header = document.createElement("span");
     header.className = "history-order-header";
     const date = document.createElement("time");
     date.dateTime = entry.createdAt;
@@ -311,8 +318,20 @@ function renderOrderHistory() {
     status.className = "history-order-status";
     status.textContent = "Đã soạn đơn";
     header.append(date, status);
-    card.append(header);
+    const summaryTotal = document.createElement("span");
+    summaryTotal.className = "history-order-summary-total";
+    summaryTotal.textContent = formatPrice(entry.totals.total);
+    const chevron = document.createElement("span");
+    chevron.className = "history-order-chevron";
+    chevron.setAttribute("aria-hidden", "true");
+    chevron.textContent = "⌄";
+    toggle.append(header, summaryTotal, chevron);
+    card.append(toggle);
 
+    const details = document.createElement("div");
+    details.className = "history-order-details";
+    details.id = detailsId;
+    details.hidden = true;
     const items = document.createElement("ul");
     items.className = "history-items";
     for (const item of entry.items) {
@@ -331,12 +350,12 @@ function renderOrderHistory() {
       }
       items.append(row);
     }
-    card.append(items);
+    details.append(items);
 
     const delivery = document.createElement("p");
     delivery.className = "history-delivery";
     delivery.textContent = entry.deliveryMethod;
-    card.append(delivery);
+    details.append(delivery);
 
     const totals = document.createElement("div");
     totals.className = "history-totals";
@@ -354,10 +373,23 @@ function renderOrderHistory() {
       line.append(lineLabel, lineAmount);
       totals.append(line);
     }
-    card.append(totals);
+    details.append(totals);
+    card.append(details);
     historyList.append(card);
   }
 }
+
+historyList.addEventListener("click", (event) => {
+  const toggle = event.target.closest(".history-order-toggle");
+  if (!toggle) return;
+  const expanded = toggle.getAttribute("aria-expanded") !== "true";
+  toggle.setAttribute("aria-expanded", String(expanded));
+  toggle.setAttribute(
+    "aria-label",
+    expanded ? "Thu gọn chi tiết đơn hàng" : "Mở chi tiết đơn hàng",
+  );
+  document.getElementById(toggle.getAttribute("aria-controls")).hidden = !expanded;
+});
 
 function saveOrderToHistory(formData) {
   const totals = getCartTotals();

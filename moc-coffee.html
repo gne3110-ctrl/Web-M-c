@@ -401,6 +401,18 @@ body { background: var(--paper); }
 }
 .topbar-zalo strong { color: var(--green); font-size: 11px; }
 .topbar-zalo > span:last-child { padding-left: 0; color: var(--orange); font-size: 14px; }
+.cart-launcher-icon {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  padding: 0 !important;
+  color: #526e45 !important;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+.topbar-zalo .topbar-cart-count { padding-left: 0; }
 @media (max-width: 620px){
   .topbar { gap: 8px; padding-right: 15px; padding-left: 15px; }
   .topbar-note { max-width: 100px; font-size: 8px; }
@@ -1185,12 +1197,27 @@ body.moc-page {
   text-align: center;
 }
 .history-order {
-  padding: 14px;
   border: 1px solid var(--line);
   border-radius: 11px;
   background: #fffef9;
 }
-.history-order-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.history-order-toggle {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto 18px;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 14px;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+.history-order-toggle:hover { background: #f7f8f1; }
+.history-order-toggle:focus-visible { outline-offset: -3px; }
+.history-order-header { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; }
 .history-order-header time { color: var(--muted); font-size: 10px; }
 .history-order-status {
   padding: 5px 8px;
@@ -1200,6 +1227,11 @@ body.moc-page {
   font-size: 9px;
   font-weight: 700;
 }
+.history-order-summary-total { color: #526e45; font-size: 12px; font-weight: 700; white-space: nowrap; }
+.history-order-chevron { color: var(--muted); font-size: 18px; line-height: 1; text-align: center; transition: transform .18s; }
+.history-order-toggle[aria-expanded="true"] .history-order-chevron { transform: rotate(180deg); }
+.history-order-details { padding: 0 14px 14px; }
+.history-order-details[hidden] { display: none; }
 .history-items { display: grid; gap: 8px; margin: 12px 0 8px; padding: 0; list-style: none; }
 .history-items li { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 3px 10px; }
 .history-item-name { color: var(--ink); font-size: 11px; }
@@ -1271,7 +1303,12 @@ body.moc-page {
         <span aria-hidden="true">◷</span><span class="topbar-history-count" id="topbar-history-count">0</span>
       </button>
       <button class="topbar-zalo" id="cart-launcher" type="button" data-open-cart aria-haspopup="dialog" aria-controls="cart-dialog" aria-label="Mở giỏ hàng, 0 món">
-        <span>Giỏ món</span><span id="launcher-count" class="topbar-cart-count">0</span><strong id="launcher-total">0₫</strong><span aria-hidden="true">↗</span>
+        <svg class="cart-launcher-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M3 4h2l2.2 11.1a2 2 0 0 0 2 1.6h8.9a2 2 0 0 0 1.9-1.4L22 8H6" />
+          <circle cx="10" cy="20" r="1" />
+          <circle cx="18" cy="20" r="1" />
+        </svg>
+        <span id="launcher-count" class="topbar-cart-count">0</span><strong id="launcher-total">0₫</strong><span aria-hidden="true">↗</span>
       </button>
     </header>
     <main class="app-shell">
@@ -1811,11 +1848,18 @@ function renderOrderHistory() {
     return;
   }
 
-  for (const entry of orderHistory) {
+  for (const [index, entry] of orderHistory.entries()) {
     const card = document.createElement("article");
     card.className = "history-order";
 
-    const header = document.createElement("div");
+    const detailsId = `history-details-${index}`;
+    const toggle = document.createElement("button");
+    toggle.className = "history-order-toggle";
+    toggle.type = "button";
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.setAttribute("aria-controls", detailsId);
+    toggle.setAttribute("aria-label", "Mở chi tiết đơn hàng");
+    const header = document.createElement("span");
     header.className = "history-order-header";
     const date = document.createElement("time");
     date.dateTime = entry.createdAt;
@@ -1827,8 +1871,20 @@ function renderOrderHistory() {
     status.className = "history-order-status";
     status.textContent = "Đã soạn đơn";
     header.append(date, status);
-    card.append(header);
+    const summaryTotal = document.createElement("span");
+    summaryTotal.className = "history-order-summary-total";
+    summaryTotal.textContent = formatPrice(entry.totals.total);
+    const chevron = document.createElement("span");
+    chevron.className = "history-order-chevron";
+    chevron.setAttribute("aria-hidden", "true");
+    chevron.textContent = "⌄";
+    toggle.append(header, summaryTotal, chevron);
+    card.append(toggle);
 
+    const details = document.createElement("div");
+    details.className = "history-order-details";
+    details.id = detailsId;
+    details.hidden = true;
     const items = document.createElement("ul");
     items.className = "history-items";
     for (const item of entry.items) {
@@ -1847,12 +1903,12 @@ function renderOrderHistory() {
       }
       items.append(row);
     }
-    card.append(items);
+    details.append(items);
 
     const delivery = document.createElement("p");
     delivery.className = "history-delivery";
     delivery.textContent = entry.deliveryMethod;
-    card.append(delivery);
+    details.append(delivery);
 
     const totals = document.createElement("div");
     totals.className = "history-totals";
@@ -1870,10 +1926,23 @@ function renderOrderHistory() {
       line.append(lineLabel, lineAmount);
       totals.append(line);
     }
-    card.append(totals);
+    details.append(totals);
+    card.append(details);
     historyList.append(card);
   }
 }
+
+historyList.addEventListener("click", (event) => {
+  const toggle = event.target.closest(".history-order-toggle");
+  if (!toggle) return;
+  const expanded = toggle.getAttribute("aria-expanded") !== "true";
+  toggle.setAttribute("aria-expanded", String(expanded));
+  toggle.setAttribute(
+    "aria-label",
+    expanded ? "Thu gọn chi tiết đơn hàng" : "Mở chi tiết đơn hàng",
+  );
+  document.getElementById(toggle.getAttribute("aria-controls")).hidden = !expanded;
+});
 
 function saveOrderToHistory(formData) {
   const totals = getCartTotals();
