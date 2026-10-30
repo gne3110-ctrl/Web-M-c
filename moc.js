@@ -1,52 +1,50 @@
 const ZALO_PHONE = "0378686196";
+const ORDER_HISTORY_KEY = "moc-coffee-order-history";
 const STORE = {
   name: "Mộc Coffee",
-  locations: [
-    "Số 5, ngõ 113 Hoàng Cầu, Ô Chợ Dừa, Hà Nội",
-    "73 Trần Quang Diệu, Đống Đa, Hà Nội",
-  ],
 };
 
 const menu = [
-  { id: "cafe-nau", name: "Café nâu", category: "Cafe Mộc", price: 30000, image: "assets/moc-coffee.jpg" },
-  { id: "cafe-den", name: "Café đen", category: "Cafe Mộc", price: 30000, image: "assets/moc-coffee.jpg" },
-  { id: "bac-xiu", name: "Bạc xỉu", category: "Cafe Mộc", price: 35000, image: "assets/moc-coffee.jpg" },
-  { id: "cafe-muoi-nhe", name: "Café muối nhẹ", category: "Cafe Mộc", price: 45000, image: "assets/moc-coffee.jpg" },
-  { id: "cafe-cot-dua", name: "Cafe cốt dừa", category: "Cafe Mộc", price: 45000, image: "assets/moc-coffee.jpg" },
-  { id: "cacao", name: "Cacao", category: "Cafe Mộc", price: 45000, image: "assets/moc-coffee.jpg" },
-  { id: "matcha-latte", name: "Matcha Latte", category: "Cafe Mộc", price: 45000, image: "assets/moc-coffee.jpg" },
-  { id: "matcha-latte-xoai", name: "Matcha latte xoài", category: "Cafe Mộc", price: 55000, image: "assets/moc-smoothie.jpg" },
-  { id: "xoai-dao-hong", name: "Xoài đào hồng", category: "Trà Mộc", price: 45000, image: "assets/moc-tea-peach.jpg" },
-  { id: "oolong-mo-dao", name: "Oolong mơ đào", category: "Trà Mộc", price: 45000, image: "assets/moc-tea-peach.jpg" },
-  { id: "oolong-nhai-sua", name: "Oolong nhài sữa", category: "Trà Mộc", price: 39000, image: "assets/moc-tea-fruit.jpg" },
-  { id: "xanh-sua-gao-rang", name: "Xanh sữa gạo rang", category: "Trà Mộc", price: 39000, image: "assets/moc-tea-peach.jpg" },
-  { id: "tra-xoai-chanh-vang", name: "Trà xoài chanh vàng", category: "Trà Mộc", price: 45000, image: "assets/moc-tea-fruit.jpg" },
-  { id: "tra-man-hau", name: "Trà mận hấu", category: "Trà Mộc", price: 49000, image: "assets/moc-tea-fruit.jpg" },
-  { id: "tra-man-kem-cheese", name: "Trà mận kem cheese", category: "Trà Mộc", price: 49000, image: "assets/moc-tea-fruit.jpg" },
-  { id: "xoai-nhai-kem-sua", name: "Xoài nhài kem sữa", category: "Trà Mộc", price: 49000, image: "assets/moc-tea-fruit.jpg" },
-  { id: "vai-hong-chieu", name: "Vải hồng chiều", category: "Trà Mộc", price: 49000, image: "assets/moc-tea-peach.jpg" },
-  { id: "brew-mo-dao", name: "Brew mơ đào", category: "Mộc Brew", price: 49000, image: "assets/moc-brew.jpg" },
-  { id: "brew-man", name: "Brew mận", category: "Mộc Brew", price: 49000, image: "assets/moc-brew.jpg" },
-  { id: "brew-vai-hoa-hong", name: "Brew vải hoa hồng (wow)", category: "Mộc Brew", price: 49000, image: "assets/moc-brew.jpg" },
-  { id: "cold-brew-nguyen-vi", name: "Cold brew nguyên vị", category: "Mộc Brew", price: 39000, image: "assets/moc-brew.jpg" },
-  { id: "sua-chua-xoai", name: "Sữa chua xoài", category: "Sữa chua mát lành", price: 42000, image: "assets/moc-smoothie.jpg" },
-  { id: "sua-chua-dua-gion", name: "Sữa chua dừa giòn", category: "Sữa chua mát lành", price: 42000, image: "assets/moc-smoothie.jpg" },
-  { id: "sua-chua-vai-lac", name: "Sữa chua vải lắc", category: "Sữa chua mát lành", price: 45000, image: "assets/moc-smoothie.jpg" },
-  { id: "sua-chua-cafe-kakao", name: "Sữa chua cafe/kakao", category: "Sữa chua mát lành", price: 39000, image: "assets/moc-smoothie.jpg" },
-  { id: "chanh-tuoi", name: "Chanh tươi", category: "Quả tươi", price: 35000, image: "assets/moc-tea-fruit.jpg" },
-  { id: "chanh-leo-tuoi", name: "Chanh leo tươi", category: "Quả tươi", price: 39000, image: "assets/moc-tea-fruit.jpg" },
-  { id: "dua-hau", name: "Dưa hấu", category: "Quả tươi", price: 39000, image: "assets/moc-tea-fruit.jpg" },
-  { id: "cam-tuoi", name: "Cam tươi", category: "Quả tươi", price: 45000, image: "assets/moc-tea-fruit.jpg" },
-  { id: "sinh-to-xoai", name: "Sinh tố xoài", category: "Quả tươi", price: 45000, image: "assets/moc-smoothie.jpg" },
-  { id: "bo-gia-dua-non", name: "Bơ già dừa non", category: "Quả tươi", price: 59000, image: "assets/moc-smoothie.jpg" },
-  { id: "sinh-to-mang-cau", name: "Sinh tố mãng cầu", category: "Quả tươi", price: 59000, image: "assets/moc-smoothie.jpg" },
-  { id: "tran-chau-thach-dua", name: "Trân châu giòn / thạch dừa", category: "Gọi thêm", price: 9000, image: "assets/moc-brew.jpg" },
-  { id: "hat-no-yen-mach", name: "Hạt nổ yến mạch", category: "Gọi thêm", price: 9000, image: "assets/moc-brew.jpg" },
-  { id: "hat-thuy-tinh-hong", name: "Hạt thủy tinh hồng", category: "Gọi thêm", price: 9000, image: "assets/moc-brew.jpg" },
-  { id: "kem-man", name: "Kem mặn", category: "Gọi thêm", price: 15000, image: "assets/moc-brew.jpg" },
-  { id: "cafe-them", name: "Cafe thêm", category: "Gọi thêm", price: 15000, image: "assets/moc-coffee.jpg" },
+  { id: "cafe-nau", name: "Café nâu", category: "Cafe Mộc", price: 30000 },
+  { id: "cafe-den", name: "Café đen", category: "Cafe Mộc", price: 30000 },
+  { id: "bac-xiu", name: "Bạc xỉu", category: "Cafe Mộc", price: 35000 },
+  { id: "cafe-muoi-nhe", name: "Café muối nhẹ", category: "Cafe Mộc", price: 45000 },
+  { id: "cafe-cot-dua", name: "Cafe cốt dừa", category: "Cafe Mộc", price: 45000 },
+  { id: "cacao", name: "Cacao", category: "Cafe Mộc", price: 45000 },
+  { id: "matcha-latte", name: "Matcha Latte", category: "Cafe Mộc", price: 45000 },
+  { id: "matcha-latte-xoai", name: "Matcha latte xoài", category: "Cafe Mộc", price: 55000 },
+  { id: "xoai-dao-hong", name: "Xoài đào hồng", category: "Trà Mộc", price: 45000 },
+  { id: "oolong-mo-dao", name: "Oolong mơ đào", category: "Trà Mộc", price: 45000 },
+  { id: "oolong-nhai-sua", name: "Oolong nhài sữa", category: "Trà Mộc", price: 39000 },
+  { id: "xanh-sua-gao-rang", name: "Xanh sữa gạo rang", category: "Trà Mộc", price: 39000 },
+  { id: "tra-xoai-chanh-vang", name: "Trà xoài chanh vàng", category: "Trà Mộc", price: 45000 },
+  { id: "tra-man-hau", name: "Trà mận hấu", category: "Trà Mộc", price: 49000 },
+  { id: "tra-man-kem-cheese", name: "Trà mận kem cheese", category: "Trà Mộc", price: 49000 },
+  { id: "xoai-nhai-kem-sua", name: "Xoài nhài kem sữa", category: "Trà Mộc", price: 49000 },
+  { id: "vai-hong-chieu", name: "Vải hồng chiều", category: "Trà Mộc", price: 49000 },
+  { id: "brew-mo-dao", name: "Brew mơ đào", category: "Mộc Brew", price: 49000 },
+  { id: "brew-man", name: "Brew mận", category: "Mộc Brew", price: 49000 },
+  { id: "brew-vai-hoa-hong", name: "Brew vải hoa hồng (wow)", category: "Mộc Brew", price: 49000 },
+  { id: "cold-brew-nguyen-vi", name: "Cold brew nguyên vị", category: "Mộc Brew", price: 39000 },
+  { id: "sua-chua-xoai", name: "Sữa chua xoài", category: "Sữa chua mát lành", price: 42000 },
+  { id: "sua-chua-dua-gion", name: "Sữa chua dừa giòn", category: "Sữa chua mát lành", price: 42000 },
+  { id: "sua-chua-vai-lac", name: "Sữa chua vải lắc", category: "Sữa chua mát lành", price: 45000 },
+  { id: "sua-chua-cafe-kakao", name: "Sữa chua cafe/kakao", category: "Sữa chua mát lành", price: 39000 },
+  { id: "chanh-tuoi", name: "Chanh tươi", category: "Quả tươi", price: 35000 },
+  { id: "chanh-leo-tuoi", name: "Chanh leo tươi", category: "Quả tươi", price: 39000 },
+  { id: "dua-hau", name: "Dưa hấu", category: "Quả tươi", price: 39000 },
+  { id: "cam-tuoi", name: "Cam tươi", category: "Quả tươi", price: 45000 },
+  { id: "sinh-to-xoai", name: "Sinh tố xoài", category: "Quả tươi", price: 45000 },
+  { id: "bo-gia-dua-non", name: "Bơ già dừa non", category: "Quả tươi", price: 59000 },
+  { id: "sinh-to-mang-cau", name: "Sinh tố mãng cầu", category: "Quả tươi", price: 59000 },
+  { id: "tran-chau-thach-dua", name: "Trân châu giòn / thạch dừa", category: "Gọi thêm", price: 9000 },
+  { id: "hat-no-yen-mach", name: "Hạt nổ yến mạch", category: "Gọi thêm", price: 9000 },
+  { id: "hat-thuy-tinh-hong", name: "Hạt thủy tinh hồng", category: "Gọi thêm", price: 9000 },
+  { id: "kem-man", name: "Kem mặn", category: "Gọi thêm", price: 15000 },
+  { id: "cafe-them", name: "Cafe thêm", category: "Gọi thêm", price: 15000 },
 ];
 
+const menuById = new Map(menu.map((item) => [item.id, item]));
 const categories = ["Tất cả", ...new Set(menu.map((item) => item.category))];
 const cart = new Map();
 let activeCategory = "Tất cả";
@@ -56,6 +54,7 @@ let pendingItemId = null;
 const menuGrid = document.querySelector("#menu-grid");
 const categoryList = document.querySelector("#categories");
 const searchInput = document.querySelector("#search-input");
+const featuredTrack = document.querySelector("#featured-track");
 const cartItems = document.querySelector("#cart-items");
 const cartCount = document.querySelector("#cart-count");
 const cartTotal = document.querySelector("#cart-total");
@@ -77,6 +76,14 @@ const orderDialog = document.querySelector("#order-dialog");
 const orderMessage = document.querySelector("#order-message");
 const openZalo = document.querySelector("#open-zalo");
 const copyStatus = document.querySelector("#copy-status");
+const historyDialog = document.querySelector("#order-history-dialog");
+const historyList = document.querySelector("#history-list");
+const historyNotice = document.querySelector("#history-notice");
+const historyDialogCount = document.querySelector("#history-dialog-count");
+const historySaveStatus = document.querySelector("#history-save-status");
+
+let orderHistory = [];
+let historyStorageMessage = "";
 
 const formatPrice = (amount) =>
   `${new Intl.NumberFormat("vi-VN").format(amount)}₫`;
@@ -95,11 +102,11 @@ function variantKey(itemId, sugar, ice, toppings) {
 }
 
 function getVariantPrice(variant) {
-  const item = menu.find((menuItem) => menuItem.id === variant.itemId);
-  return item.price + variant.toppings.reduce((sum, id) => {
-    const topping = menu.find((menuItem) => menuItem.id === id);
-    return sum + topping.price;
-  }, 0);
+  const item = menuById.get(variant.itemId);
+  return item.price + variant.toppings.reduce(
+    (sum, id) => sum + menuById.get(id).price,
+    0,
+  );
 }
 
 function renderToppings() {
@@ -117,12 +124,11 @@ function renderToppings() {
 }
 
 function updateCustomizePrice() {
-  const item = menu.find((menuItem) => menuItem.id === pendingItemId);
+  const item = menuById.get(pendingItemId);
   if (!item) return;
   const selectedToppings = [...customizeForm.querySelectorAll('input[name="topping"]:checked')];
   const extras = selectedToppings.reduce((sum, input) => {
-    const topping = menu.find((menuItem) => menuItem.id === input.value);
-    return sum + topping.price;
+    return sum + menuById.get(input.value).price;
   }, 0);
   customizePrice.textContent = `Giá món: ${formatPrice(item.price + extras)}`;
 }
@@ -160,11 +166,9 @@ function renderMenu() {
   document.querySelector("#empty-menu").hidden = filtered.length !== 0;
   menuGrid.innerHTML = filtered
     .map(
-      (item) => `
+      (      item) => `
         <article class="food-card">
-          <div class="food-image">
-            <img src="${item.image}" alt="${item.name}" loading="lazy" />
-          </div>
+          <div class="food-image" aria-hidden="true"></div>
           <div class="food-details">
             <span class="food-category">${item.category}</span>
             <div class="food-topline">
@@ -201,11 +205,11 @@ function renderCart() {
   cartItems.innerHTML = entries.length
     ? entries
         .map(([key, variant]) => {
-          const item = menu.find((menuItem) => menuItem.id === variant.itemId);
+          const item = menuById.get(variant.itemId);
           const details = [
             variant.sugar && `Đường ${variant.sugar}`,
             variant.ice && variant.ice,
-            ...variant.toppings.map((id) => menu.find((menuItem) => menuItem.id === id).name),
+            ...variant.toppings.map((id) => menuById.get(id).name),
           ].filter(Boolean).join(" · ");
           const unitPrice = getVariantPrice(variant);
           return `
@@ -230,6 +234,168 @@ function renderCart() {
        </div>`;
 }
 
+function isOrderHistoryEntry(entry) {
+  return entry &&
+    typeof entry.id === "string" &&
+    typeof entry.createdAt === "string" &&
+    Number.isFinite(Date.parse(entry.createdAt)) &&
+    Array.isArray(entry.items) &&
+    entry.items.every((item) =>
+      typeof item.name === "string" &&
+      Number.isInteger(item.quantity) &&
+      item.quantity > 0 &&
+      Array.isArray(item.options) &&
+      item.options.every((option) => typeof option === "string") &&
+      Number.isFinite(item.total),
+    ) &&
+    entry.items.length > 0 &&
+    ["subtotal", "tax", "total"].every((key) =>
+      Number.isFinite(entry.totals?.[key]),
+    ) &&
+    typeof entry.deliveryMethod === "string";
+}
+
+function loadOrderHistory() {
+  try {
+    const savedHistory = localStorage.getItem(ORDER_HISTORY_KEY);
+    if (savedHistory === null) return;
+
+    const parsedHistory = JSON.parse(savedHistory);
+    if (!Array.isArray(parsedHistory)) {
+      historyStorageMessage = "Không thể đọc lịch sử đơn đã lưu trên thiết bị này.";
+      return;
+    }
+
+    orderHistory = parsedHistory.filter(isOrderHistoryEntry);
+    if (orderHistory.length !== parsedHistory.length) {
+      historyStorageMessage = "Một số mục lịch sử không hợp lệ nên không thể hiển thị.";
+    }
+  } catch {
+    historyStorageMessage = "Không thể đọc lịch sử đơn đã lưu trên thiết bị này.";
+  }
+}
+
+function renderOrderHistory() {
+  const count = orderHistory.length;
+  document.querySelector("#topbar-history-count").textContent = count;
+  document.querySelector("#sidebar-history-count").textContent = count;
+  historyDialogCount.textContent = count;
+  document.querySelectorAll("[data-open-history]").forEach((button) => {
+    button.setAttribute("aria-label", `Lịch sử đơn, ${count} đơn`);
+  });
+  historyList.replaceChildren();
+  historyNotice.textContent = historyStorageMessage;
+  historyNotice.hidden = !historyStorageMessage;
+
+  if (count === 0) {
+    const emptyState = document.createElement("div");
+    emptyState.className = "history-empty";
+    emptyState.textContent = "Bạn chưa có đơn nào được tạo trên thiết bị này.";
+    historyList.append(emptyState);
+    return;
+  }
+
+  for (const entry of orderHistory) {
+    const card = document.createElement("article");
+    card.className = "history-order";
+
+    const header = document.createElement("div");
+    header.className = "history-order-header";
+    const date = document.createElement("time");
+    date.dateTime = entry.createdAt;
+    date.textContent = new Intl.DateTimeFormat("vi-VN", {
+      dateStyle: "medium",
+      timeStyle: "short",
+    }).format(new Date(entry.createdAt));
+    const status = document.createElement("span");
+    status.className = "history-order-status";
+    status.textContent = "Đã soạn đơn";
+    header.append(date, status);
+    card.append(header);
+
+    const items = document.createElement("ul");
+    items.className = "history-items";
+    for (const item of entry.items) {
+      const row = document.createElement("li");
+      const name = document.createElement("span");
+      name.className = "history-item-name";
+      name.textContent = `${item.name} ×${item.quantity}`;
+      const price = document.createElement("strong");
+      price.textContent = formatPrice(item.total);
+      row.append(name, price);
+      if (item.options.length > 0) {
+        const options = document.createElement("small");
+        options.className = "history-item-options";
+        options.textContent = item.options.join(" · ");
+        row.append(options);
+      }
+      items.append(row);
+    }
+    card.append(items);
+
+    const delivery = document.createElement("p");
+    delivery.className = "history-delivery";
+    delivery.textContent = entry.deliveryMethod;
+    card.append(delivery);
+
+    const totals = document.createElement("div");
+    totals.className = "history-totals";
+    for (const [label, value, isGrandTotal] of [
+      ["Tạm tính", entry.totals.subtotal, false],
+      ["Thuế VAT (8%)", entry.totals.tax, false],
+      ["Tổng thanh toán", entry.totals.total, true],
+    ]) {
+      const line = document.createElement("div");
+      if (isGrandTotal) line.className = "history-grand-total";
+      const lineLabel = document.createElement("span");
+      lineLabel.textContent = label;
+      const lineAmount = document.createElement("strong");
+      lineAmount.textContent = formatPrice(value);
+      line.append(lineLabel, lineAmount);
+      totals.append(line);
+    }
+    card.append(totals);
+    historyList.append(card);
+  }
+}
+
+function saveOrderToHistory(formData) {
+  const totals = getCartTotals();
+  const entry = {
+    id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    createdAt: new Date().toISOString(),
+    items: [...cart.values()].map((variant) => {
+      const item = menuById.get(variant.itemId);
+      const options = [
+        variant.sugar && `Đường ${variant.sugar}`,
+        variant.ice,
+        ...variant.toppings.map((id) => menuById.get(id).name),
+      ].filter(Boolean);
+      return {
+        name: item.name,
+        quantity: variant.quantity,
+        options,
+        total: getVariantPrice(variant) * variant.quantity,
+      };
+    }),
+    totals,
+    deliveryMethod: formData.get("delivery") === "delivery"
+      ? "Giao tận nơi"
+      : "Đến lấy tại cửa hàng",
+  };
+
+  orderHistory.unshift(entry);
+  historyStorageMessage = "";
+  try {
+    localStorage.setItem(ORDER_HISTORY_KEY, JSON.stringify(orderHistory));
+    historySaveStatus.textContent = "";
+  } catch {
+    historyStorageMessage = "Không lưu được lịch sử trên thiết bị này; đơn vẫn đã được soạn.";
+    historySaveStatus.textContent = historyStorageMessage;
+  }
+  renderOrderHistory();
+}
+
 categoryList.addEventListener("click", (event) => {
   const button = event.target.closest("[data-category]");
   if (!button) return;
@@ -241,7 +407,7 @@ categoryList.addEventListener("click", (event) => {
 menuGrid.addEventListener("click", (event) => {
   const button = event.target.closest("[data-add]");
   if (!button) return;
-  const item = menu.find((menuItem) => menuItem.id === button.dataset.add);
+  const item = menuById.get(button.dataset.add);
   if (item.category === "Gọi thêm") {
     addVariant({ itemId: item.id, sugar: "", ice: "", toppings: [] });
     return;
@@ -290,7 +456,6 @@ clearCartButton.addEventListener("click", () => {
 document.querySelectorAll("[data-open-cart]").forEach((button) => {
   button.addEventListener("click", () => {
     if (!cartDialog.open) {
-      resetCustomerDetails();
       cartDialog.showModal();
     }
   });
@@ -300,26 +465,22 @@ document.querySelector("#close-cart").addEventListener("click", () => {
   cartDialog.close();
 });
 
-function resetCustomerDetails() {
-  orderForm.reset();
-  orderForm.elements.name.value = "";
-  orderForm.elements.phone.value = "";
-  addressInput.value = "";
-  orderForm.elements.note.value = "";
-  formError.hidden = true;
-  formError.textContent = "";
-  document.querySelectorAll('input[name="delivery"]').forEach((input) => {
-    const selected = input.value === "delivery";
-    input.checked = selected;
-    input.closest(".delivery-option").classList.toggle("selected", selected);
+document.querySelectorAll("[data-open-history]").forEach((button) => {
+  button.addEventListener("click", () => {
+    if (!historyDialog.open) {
+      renderOrderHistory();
+      historyDialog.showModal();
+    }
   });
-  addressField.hidden = false;
-  addressInput.required = true;
-  addressInput.disabled = false;
-  pickupField.hidden = true;
-  pickupLocation.required = false;
-  pickupLocation.disabled = true;
-}
+});
+
+document.querySelector("#close-history").addEventListener("click", () => {
+  historyDialog.close();
+});
+
+historyDialog.addEventListener("click", (event) => {
+  if (event.target === historyDialog) historyDialog.close();
+});
 
 cartDialog.addEventListener("click", (event) => {
   if (event.target === cartDialog) cartDialog.close();
@@ -328,6 +489,42 @@ cartDialog.addEventListener("click", (event) => {
 searchInput.addEventListener("input", () => {
   searchQuery = searchInput.value;
   renderMenu();
+});
+
+function goToFeaturedSlide(index) {
+  const slides = [...featuredTrack.children];
+  const boundedIndex = (index + slides.length) % slides.length;
+  featuredTrack.scrollTo({
+    left: boundedIndex * featuredTrack.clientWidth,
+    behavior: "smooth",
+  });
+}
+
+featuredTrack.addEventListener("scroll", () => {
+  const currentIndex = Math.round(featuredTrack.scrollLeft / featuredTrack.clientWidth);
+  document.querySelectorAll("[data-featured-slide]").forEach((button, index) => {
+    const active = index === currentIndex;
+    button.classList.toggle("active", active);
+    if (active) button.setAttribute("aria-current", "true");
+    else button.removeAttribute("aria-current");
+  });
+}, { passive: true });
+
+document.querySelector(".featured-controls").addEventListener("click", (event) => {
+  const button = event.target.closest("[data-featured-slide]");
+  if (!button) return;
+  goToFeaturedSlide(Number(button.dataset.featuredSlide));
+});
+
+featuredTrack.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-featured-search]");
+  if (!button) return;
+  activeCategory = "Tất cả";
+  searchInput.value = button.dataset.featuredSearch;
+  searchQuery = searchInput.value;
+  renderCategories();
+  renderMenu();
+  document.querySelector("#menu").scrollIntoView({ behavior: "smooth" });
 });
 
 document.addEventListener("keydown", (event) => {
@@ -354,22 +551,23 @@ document.querySelectorAll('input[name="delivery"]').forEach((input) => {
 });
 
 function buildOrderMessage(formData) {
+  const totals = getCartTotals();
   const lines = [
     `Xin chào ${STORE.name}, mình muốn đặt món:`,
     "",
     ...[...cart.values()].map((variant) => {
-      const item = menu.find((menuItem) => menuItem.id === variant.itemId);
+      const item = menuById.get(variant.itemId);
       const details = [
         variant.sugar && `đường ${variant.sugar}`,
         variant.ice && variant.ice.toLowerCase(),
-        ...variant.toppings.map((id) => menu.find((menuItem) => menuItem.id === id).name),
+        ...variant.toppings.map((id) => menuById.get(id).name),
       ].filter(Boolean);
       return `• ${item.name} x${variant.quantity}${details.length ? ` (${details.join(", ")})` : ""} — ${formatPrice(getVariantPrice(variant) * variant.quantity)}`;
     }),
     "",
-    `Tạm tính: ${formatPrice(getCartTotals().subtotal)}`,
-    `Thuế VAT (8%): ${formatPrice(getCartTotals().tax)}`,
-    `Tổng thanh toán: ${formatPrice(getCartTotals().total)}`,
+    `Tạm tính: ${formatPrice(totals.subtotal)}`,
+    `Thuế VAT (8%): ${formatPrice(totals.tax)}`,
+    `Tổng thanh toán: ${formatPrice(totals.total)}`,
     `Hình thức: ${formData.get("delivery") === "delivery" ? "Giao tận nơi" : "Đến lấy tại cửa hàng"}`,
     `Người nhận: ${formData.get("name")}`,
     `Số điện thoại: ${formData.get("phone")}`,
@@ -409,7 +607,9 @@ orderForm.addEventListener("submit", async (event) => {
     return;
   }
 
-  orderMessage.value = buildOrderMessage(new FormData(orderForm));
+  const formData = new FormData(orderForm);
+  orderMessage.value = buildOrderMessage(formData);
+  saveOrderToHistory(formData);
   openZalo.href = `https://zalo.me/${ZALO_PHONE}`;
   const zaloWindow = window.open("about:blank", "_blank");
   if (zaloWindow) zaloWindow.opener = null;
@@ -454,3 +654,12 @@ renderCategories();
 renderMenu();
 renderToppings();
 renderCart();
+loadOrderHistory();
+renderOrderHistory();
+
+const embeddedFeedbackPdf = document.querySelector("#embedded-feedback-pdf");
+if (embeddedFeedbackPdf) {
+  document.querySelectorAll("[data-feedback-pdf]").forEach((link) => {
+    link.href = embeddedFeedbackPdf.href;
+  });
+}
