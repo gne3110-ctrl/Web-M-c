@@ -440,7 +440,7 @@ function buildOrderMessage(formData) {
   return lines.join("\n");
 }
 
-orderForm.addEventListener("submit", (event) => {
+orderForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   formError.hidden = true;
   formError.textContent = "";
@@ -464,9 +464,17 @@ orderForm.addEventListener("submit", (event) => {
 
   orderMessage.value = buildOrderMessage(new FormData(orderForm));
   openZalo.href = `https://zalo.me/${ZALO_PHONE}`;
-  window.open(openZalo.href, "_blank", "noopener,noreferrer");
+  const zaloWindow = window.open("about:blank", "_blank");
+  if (zaloWindow) zaloWindow.opener = null;
   orderDialog.showModal();
-  void copyOrderToClipboard();
+  const copied = await copyOrderToClipboard();
+  if (zaloWindow) {
+    zaloWindow.location.href = openZalo.href;
+  } else {
+    copyStatus.textContent = copied
+      ? "Đã sao chép đơn. Zalo chưa tự mở — bấm “Nhắn Mộc trên Zalo”, rồi dán tin nhắn."
+      : "Zalo chưa tự mở. Hãy sao chép nội dung đơn bên trên rồi bấm “Nhắn Mộc trên Zalo”.";
+  }
 });
 
 document.querySelector("#dialog-close").addEventListener("click", () => {
@@ -481,6 +489,7 @@ async function copyOrderToClipboard() {
   try {
     await navigator.clipboard.writeText(orderMessage.value);
     copyStatus.textContent = "Đã sao chép đơn. Dán vào khung chat Zalo rồi nhấn gửi nhé.";
+    return true;
   } catch {
     orderMessage.focus();
     orderMessage.select();
@@ -488,6 +497,7 @@ async function copyOrderToClipboard() {
     copyStatus.textContent = copied
       ? "Đã sao chép đơn. Dán vào khung chat Zalo rồi nhấn gửi nhé."
       : "Không thể tự sao chép. Hãy sao chép nội dung đơn bên trên rồi dán vào Zalo.";
+    return copied;
   }
 }
 
